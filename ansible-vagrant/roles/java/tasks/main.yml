@@ -1,0 +1,25 @@
+---
+- name: Install Java (This takes around 2 minutes please wait...)
+  become: yes
+  shell: |
+    apt update
+    wget https://s3-eu-west-1.amazonaws.com/wa-java/openjdk-11.0.1_linux-x64_bin.tar.gz
+    mkdir /usr/lib/jvm/
+    tar xvf openjdk-11.0.1_linux-x64_bin.tar.gz --directory /usr/lib/jvm/
+    ln -s /usr/lib/jvm/jdk-11.0.1/bin/java /usr/bin/java    
+
+- name: Install systemd
+  apt:
+    name: systemd
+    state: present
+
+- name: Upload service
+  copy:
+    src: app-example.service
+    dest: /etc/systemd/system/app-example.service
+
+- name: Enable service
+  become: yes
+  shell: |
+    systemctl enable app-example.service
+    systemctl start app-example

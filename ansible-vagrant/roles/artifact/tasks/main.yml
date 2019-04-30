@@ -1,0 +1,15 @@
+---
+- name: mkdir -p /opt/wwa
+  become: yes
+  shell: |
+    mkdir -p /opt/wwa
+
+- name: Copy java artifact
+  copy:
+    src: ../java/app-example/target/app-example-1.0.jar
+    dest: /opt/wwa/app-example-1.0.jar
+
+- name: Copy python artifact
+  copy:
+    src: ../python/wwa_app_example/dist/wwa_app_example-1.0.1508506802-py3-none-any.whl
+    dest: /opt/wwa/wwa_app_example-1.0.1508506802-py3-none-any.whl

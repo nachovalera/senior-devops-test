@@ -1,0 +1,14 @@
+---
+- name: Install python3-pip
+  apt:
+    name: python3-pip
+    state: present
+- name: Install python library
+  shell: |
+    pip3 install /opt/wwa/wwa_app_example-1.0.1508506802-py3-none-any.whl
+
+- name: Add cronjob wwa_app_example every 5 minutes
+  cron:
+    name: "Add cronjob wwa_app_example every 5 minutes"
+    minute: "*/5"
+    job: "python3 -m wwa-app-example"

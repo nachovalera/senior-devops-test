@@ -1,0 +1,15 @@
+---
+- name: Install the package "htop"
+  apt:
+    name: htop
+    state: present
+
+- name: Upload wwa_senior_devops.zip for setting PROJECTS_ZIP env var
+  copy:
+    src: wwa_senior_devops.zip
+    dest: /opt/wwa/wwa_senior_devops.zip
+
+- name: Set PROJECTS_ZIP env var
+  become: yes
+  shell: |
+    echo 'PROJECTS_ZIP="/opt/wwa/wwa_senior_devops.zip"' >> /etc/environment    
