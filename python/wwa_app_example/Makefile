@@ -20,9 +20,11 @@ install_package:
 run: env_ok
 	env/bin/python -m wwa-app-example
 
-env_ok: requirements.txt
+env: requirements.txt
 	rm -rf env env_ok
+	python3 -m venv env
+
+env_ok: env
 	python3 -m venv env
 	env/bin/pip install -r requirements.txt
 	touch env_ok
-
